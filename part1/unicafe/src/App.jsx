@@ -1,7 +1,24 @@
 import { useState } from 'react'
 
+const Button = ({handleClick, text}) => {
+  return (
+    <button onClick={handleClick}>{text}</button>
+  );
+};
+
+const StatisticLine = ({text, value}) => {
+  return (
+    <>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+    </>
+  );
+};
+
 const Statistics = ({good, neutral, bad, all}) => {  //* <--  Remember to use {} when passing specific name props
-  const average = (good * 1 + neutral * 0 + bad * -1) / all;
+  const average = ((good * 1 + neutral * 0 + bad * -1) / all).toFixed(2);
   const positivePercentage = ((good * 100) / all).toFixed(2); //? <-- toFixed(x) shows the amount of numbers after decimal
 
   if (all == 0) {
@@ -10,20 +27,24 @@ const Statistics = ({good, neutral, bad, all}) => {  //* <--  Remember to use {}
         <h1>Statistics</h1>
         No feedback given
       </div>
-    )
-  }
+    );
+  };
   return (
     <div>
       <h1>Statistics</h1>
-      good: {good}<br />
-      neutral: {neutral}<br />
-      bad: {bad}<br />
-      all: {all}<br />
-      average: {average}<br />
-      positive percentage: {positivePercentage}%<br />
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={good} />
+          <StatisticLine text="neutral" value={neutral} />
+          <StatisticLine text="bad" value={bad} />
+          <StatisticLine text="all" value={all} />
+          <StatisticLine text="average" value={average} />
+          <StatisticLine text="positive percentage" value={`${positivePercentage}%`} />
+        </tbody>
+      </table>
     </div>
-  )
-}
+  );
+};
 
 const App = () => {
   // save clicks of each button to its own state (destructuring)
@@ -41,6 +62,7 @@ const App = () => {
       <br />
       <Statistics good={good} neutral={neutral} bad={bad} all={all} />
     </div>
-  )
-}
+  );
+};
+
 export default App
