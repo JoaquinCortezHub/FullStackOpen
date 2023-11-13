@@ -16,12 +16,21 @@ Repo with all the @FullStackOpen 's course exercises to learn fullstack developm
   to learn about native applications which is something totally foreign to me.
 - I also expect to complete this course before the end of 2023, before starting college,
   allowing me to be better prepared for a most likely rough first year.
-## Courses Completed ☑️
+## Parts Completed ☑️
 - [x] Part 0
 - [ ] Part 1
 - [ ] Part 2
 - [ ] Part 3
 - [ ] Part 4
+- [ ] Part 5
+- [ ] Part 6
+- [ ] Part 7
+- [ ] Part 8
+- [ ] Part 9
+- [ ] Part 10
+- [ ] Part 11
+- [ ] Part 12
+- [ ] Part 13
 ## Socials and Contact 📱
 - [LinkedIn](https://www.linkedin.com/in/joaquín-cortez/?locale=en_US)
 - joaquinlucascortez@gmail.com
