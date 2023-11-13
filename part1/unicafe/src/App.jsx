@@ -4,6 +4,14 @@ const Statistics = ({good, neutral, bad, all}) => {  //* <--  Remember to use {}
   const average = (good * 1 + neutral * 0 + bad * -1) / all;
   const positivePercentage = ((good * 100) / all).toFixed(2); //? <-- toFixed(x) shows the amount of numbers after decimal
 
+  if (all == 0) {
+    return (
+      <div>
+        <h1>Statistics</h1>
+        No feedback given
+      </div>
+    )
+  }
   return (
     <div>
       <h1>Statistics</h1>
@@ -35,5 +43,4 @@ const App = () => {
     </div>
   )
 }
-
 export default App
