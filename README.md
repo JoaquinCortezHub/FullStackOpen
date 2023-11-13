@@ -16,7 +16,7 @@ Repo with all the @FullStackOpen 's course exercises to learn fullstack developm
   to learn about native applications which is something totally foreign to me.
 - I also expect to complete this course before the end of 2023, before starting college,
   allowing me to be better prepared for a most likely rough first year.
-## Courses Completed ☑️
+## Parts Completed ☑️
 - [x] Part 0
 - [ ] Part 1
 - [ ] Part 2
