@@ -1,46 +1,4 @@
-// Refactor code in 3 components: Header, Content & Total.
-// Consts are still in APP but passed by props to other components.
-
-const Header = ({courseName}) => {
-  return <h2>{courseName}</h2>;
-};
-
-const Part = ({part}) => {
-  return (
-    <p>{part.name}: {part.exercises} exercises</p>
-  );
-};
-
-const Content = ({parts}) => {
-  return (
-    <div>
-      {parts.map((part) => (
-        <Part key={part.id} part={part} />
-      ))}
-    </div>
-  );
-};
-
-const Course = ({course}) => {
-  return (
-    <div>
-      <Header courseName={course.name}/>
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
-    </div>
-  );
-};
-
-const Total = ({parts}) => {
-
-  const totalExercises = parts.reduce(
-    (total, part) => total + part.exercises, 0);
-  return (
-    <div>
-      <p>Total Exercises: {totalExercises}</p>
-    </div>
-  );
-};
+import Course from './components/Course'
 
 const App = () => {
   const courses = [
