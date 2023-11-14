@@ -18,7 +18,7 @@ Repo with all the @FullStackOpen 's course exercises to learn fullstack developm
   allowing me to be better prepared for a most likely rough first year.
 ## Parts Completed ☑️
 - [x] Part 0
-- [ ] Part 1
+- [x] Part 1
 - [ ] Part 2
 - [ ] Part 3
 - [ ] Part 4
