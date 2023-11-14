@@ -1,69 +1,71 @@
 // Refactor code in 3 components: Header, Content & Total.
 // Consts are still in APP but passed by props to other components.
 
-const Header = (props) => {
-  console.log(props)
-  return (
-    <h1>{props.course}</h1>
-  )
+const Header = ({courseName}) => {
+  return <h1>{courseName}</h1>;
 };
-const Part = (props) => {
-  console.log(props)
+
+const Part = ({part}) => {
   return (
-    <p>{props.part.name}: {props.part.exercises} exercises</p>
+    <p>{part.name}: {part.exercises} exercises</p>
   );
 };
 
-const Content = (props) => {
-  console.log(props)
+const Content = ({parts}) => {
   return (
     <div>
-      <Part part={props.parts[0]} />
-      <Part part={props.parts[1]} />
-      <Part part={props.parts[2]} />
-      
+      {parts.map((part) => (
+        <Part key={part.id} part={part} />
+      ))}
     </div>
-  )
+  );
 };
 
-const Total = (props) => {
-  console.log(props)
-  const totalExercises = props.parts.reduce(
-    (total, part) => total + part.exercises, 0
-  );
+const Course = ({course}) => {
   return (
     <div>
-      <p>Total Exercises: {totalExercises}</p>
+      <Header courseName={course.name}/>
+      <Content parts={course.parts} />
     </div>
   );
 };
+
+// const Total = (props) => {
+//   console.log(props)
+//   const totalExercises = props.parts.reduce(
+//     (total, part) => total + part.exercises, 0
+//   );
+//   return (
+//     <div>
+//       <p>Total Exercises: {totalExercises}</p>
+//     </div>
+//   );
+// };
 
 const App = () => {
   const course = {
+    id: 1,
     name: 'Half Stack application development',
     parts: [
       {
         name: 'Fundamentals of React',
         exercises: 10,
+        id: 1
       },
       {
         name: 'Using props to pass data',
         exercises: 7,
+        id: 2
       },
       {
         name: 'State of a component',
         exercises: 14,
-      },
-    ],
-  };
+        id: 3
+      }
+    ]
+  }
 
-  return (
-    <div>
-      <Header course={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
-    </div>
-  )
+  return <Course course={course} />
 }
 
 

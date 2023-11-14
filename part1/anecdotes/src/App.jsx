@@ -26,7 +26,7 @@ const App = () => {
     setVotes(newVote);
   };
 
-  const mostVotedAnecdote = votes.indexOf(Math.max(...votes));
+  const mostVotedAnecdote = votes.indexOf(Math.max(...votes)); //? <-- Returns the highest value in the 'votes' array
 
   return (
     <div>
