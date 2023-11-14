@@ -26,21 +26,21 @@ const Course = ({course}) => {
     <div>
       <Header courseName={course.name}/>
       <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </div>
   );
 };
 
-// const Total = (props) => {
-//   console.log(props)
-//   const totalExercises = props.parts.reduce(
-//     (total, part) => total + part.exercises, 0
-//   );
-//   return (
-//     <div>
-//       <p>Total Exercises: {totalExercises}</p>
-//     </div>
-//   );
-// };
+const Total = ({parts}) => {
+
+  const totalExercises = parts.reduce(
+    (total, part) => total + part.exercises, 0);
+  return (
+    <div>
+      <p>Total Exercises: {totalExercises}</p>
+    </div>
+  );
+};
 
 const App = () => {
   const course = {
