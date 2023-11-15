@@ -6,9 +6,14 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    const newPerson = {name: newName};
-    setPersons([...persons, newPerson])
-    setNewName('')
+    //*'some' returns TRUE if at least one of the values exists in the array
+    if (persons.some(person => person.name === newName)) {
+      alert(`${newName} is already added to the list`)
+    } else {
+      const newPerson = {name: newName};
+      setPersons([...persons, newPerson])
+      setNewName('')
+    };
   };
 
   const handleNameChange = (event) => {
