@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios';
 
 const Filter = ({filter, handleFilterChange}) => (
   <div>
@@ -19,7 +20,7 @@ const PersonForm = ({addPerson, newName, handleNameChange, newPhone, handlePhone
 );
 
 const PersonDetails = ({person}) => (
-  <li key={person.name}>
+  <li key={person.id}>
     {person.name}: {person.phone}
   </li>
 );
@@ -39,10 +40,21 @@ const PersonsList = ({ persons, filter }) => {
 };
 
 const App = () => {;
-  const [persons, setPersons] = useState([{ name: 'Arto Hellas', phone: '12345678' }]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    console.log('Effect')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('Promise fullfilled')
+        setPersons(response.data);
+      });
+  }, [])
+  console.log('render', persons.lenght, 'persons')
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -52,9 +64,16 @@ const App = () => {;
     }
     else {
       const newPerson = {name: newName, phone: newPhone}; //? <-- To inlude extra data within the same person, just add to the array
-      setPersons([...persons, newPerson]);
-      setNewName('');
-      setNewPhone('');
+      axios
+        .post('http://localhost:3001/persons', newPerson)
+        .then(response => {
+          setPersons([...persons, response.data]);
+          setNewName('');
+          setNewPhone('');
+        })
+        .catch(error => {
+          alert("Error Adding Person", error);
+        });
     };
   };
 
