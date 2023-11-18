@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
+import personsService from './services/persons'
 
 const Filter = ({filter, handleFilterChange}) => (
   <div>
@@ -19,13 +20,14 @@ const PersonForm = ({addPerson, newName, handleNameChange, newPhone, handlePhone
   </form>
 );
 
-const PersonDetails = ({person}) => (
+const PersonDetails = ({person, onDelete}) => (
   <li key={person.id}>
     {person.name}: {person.number}
+    <button onClick={() => onDelete(person.id)}>Delete</button>
   </li>
 );
 
-const PersonsList = ({ persons, filter }) => {
+const PersonsList = ({ persons, filter, onDelete }) => {
   const filteredPersons = persons.filter(person =>
     person.name.toLowerCase().includes(filter.toLowerCase())
   );
@@ -33,7 +35,7 @@ const PersonsList = ({ persons, filter }) => {
   return (
     <ul>
       {filteredPersons.map(person => (
-        <PersonDetails key={person.name} person={person}/>
+        <PersonDetails key={person.name} person={person} onDelete={onDelete}/>
       ))}
     </ul>
   );
@@ -46,15 +48,13 @@ const App = () => {;
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    console.log('Effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('Promise fullfilled')
-        setPersons(response.data);
-      });
+    personsService
+    .getAll()
+    .then(initialPersons => {
+      setPersons(initialPersons)
+    })
   }, [])
-  console.log('render', persons.length, 'persons')
+
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -89,6 +89,21 @@ const App = () => {;
     setFilter(event.target.value);
   };
 
+  const handleDelete = (id) => {
+    const personToDelete = persons.find(person => person.id === id); //? <-- Finds the id to the person to delete
+    const confirmed = window.confirm(`Delete ${personToDelete.name}?`);
+    if (confirmed) {
+      personsService
+      .remove(id)
+      .then(deletedId => {
+        setPersons(persons.filter(person => person.id !== deletedId)); //? <-- new persons array set to all the names except the one deleted
+      })
+      .catch(error => {
+        alert("Error deleting person", error);
+      })
+    }
+  };
+
   return (
     <div>
       <h1>Phonebook</h1>
@@ -102,7 +117,7 @@ const App = () => {;
       handlePhoneChange={handlePhoneChange}
       />
       <h2>Numbers</h2>
-      <PersonsList persons={persons} filter={filter} />
+      <PersonsList persons={persons} filter={filter} onDelete={handleDelete} />
       <br />
     </div>
   );
