@@ -11,7 +11,7 @@ const PersonForm = ({addPerson, newName, handleNameChange, newPhone, handlePhone
   <form onSubmit={addPerson}>
     <div>
       name: <input value={newName} onChange={handleNameChange} /><br />
-      phone: <input value={newPhone} onChange={handlePhoneChange} />
+      number: <input value={newPhone} onChange={handlePhoneChange} />
     </div>
     <div>
       <button type="submit">add</button>
@@ -21,7 +21,7 @@ const PersonForm = ({addPerson, newName, handleNameChange, newPhone, handlePhone
 
 const PersonDetails = ({person}) => (
   <li key={person.id}>
-    {person.name}: {person.phone}
+    {person.name}: {person.number}
   </li>
 );
 
@@ -54,7 +54,7 @@ const App = () => {;
         setPersons(response.data);
       });
   }, [])
-  console.log('render', persons.lenght, 'persons')
+  console.log('render', persons.length, 'persons')
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -63,7 +63,7 @@ const App = () => {;
       alert(`${newName} is already added to the list`)
     }
     else {
-      const newPerson = {name: newName, phone: newPhone}; //? <-- To inlude extra data within the same person, just add to the array
+      const newPerson = {name: newName, number: newPhone}; //? <-- To include extra data within the same person, just add to the array
       axios
         .post('http://localhost:3001/persons', newPerson)
         .then(response => {
