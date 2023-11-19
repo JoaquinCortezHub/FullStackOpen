@@ -1,0 +1,8 @@
+.notification {
+    background-color: rgba(121, 121, 245, 0.507);
+    color: black;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}

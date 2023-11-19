@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import personsService from './services/persons'
+import Notification from './Notification';
 
 const Filter = ({filter, handleFilterChange}) => (
   <div>
@@ -46,6 +47,7 @@ const App = () => {;
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [filter, setFilter] = useState('');
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     personsService
@@ -60,7 +62,10 @@ const App = () => {;
     event.preventDefault();
     
     if (persons.some(person => person.name === newName)) { //* <-- 'some' returns TRUE if at least one of the values exists in the array
-      alert(`${newName} is already added to the list`)
+      setNotification(`${newName} is already in the list.`);
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000);
     }
     else {
       const newPerson = {name: newName, number: newPhone}; //? <-- To include extra data within the same person, just add to the array
@@ -70,9 +75,16 @@ const App = () => {;
           setPersons([...persons, response.data]);
           setNewName('');
           setNewPhone('');
+          setNotification(`${newName} has been added to the list.`);
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000);
         })
         .catch(error => {
-          alert("Error Adding Person", error);
+          setNotification(`Error Adding person: ${error.message}`);
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000);
         });
     };
   };
@@ -97,9 +109,16 @@ const App = () => {;
       .remove(id)
       .then(deletedId => {
         setPersons(persons.filter(person => person.id !== deletedId)); //? <-- new persons array set to all the names except the one deleted
+        setNotification(`${personToDelete.name} has been deleted.`)
+        setTimeout(() => {
+          setNotification(null);
+        }, 5000);
       })
       .catch(error => {
-        alert("Error deleting person", error);
+        setNotification(`Failed to delete ${personToDelete}. Error: ${error.message}`)
+        setTimeout(() => {
+          setNotification(null);
+        }, 5000);
       })
     }
   };
@@ -107,6 +126,7 @@ const App = () => {;
   return (
     <div>
       <h1>Phonebook</h1>
+      <Notification message={notification} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h2>add a new</h2>
       <PersonForm
