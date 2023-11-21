@@ -19,7 +19,7 @@ Repo with all the @FullStackOpen 's course exercises to learn fullstack developm
 ## Parts Completed ☑️
 - [x] Part 0
 - [x] Part 1
-- [ ] Part 2
+- [x] Part 2
 - [ ] Part 3
 - [ ] Part 4
 - [ ] Part 5
